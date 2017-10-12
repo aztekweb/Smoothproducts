@@ -197,7 +197,7 @@
 						$('.sp-lightbox-content img').fadeOut(250, function() {
 							$(this).remove();
 							$('.sp-lightbox').data('currenteq',nextEq);
-							$('.sp-lightbox-content').append('<img src="'+newImg+'" alt="' + alt + '" title="' + title + '"/>');
+							$('.sp-lightbox-content').prepend('<img src="'+newImg+'" alt="' + alt + '" title="' + title + '"/>');
 							$('.sp-lightbox-caption').html('<span>' + title +'</span>');
 							$('.sp-lightbox-content img').hide().fadeIn(250);
 						});
@@ -229,7 +229,7 @@
 						$('.sp-lightbox-content img').fadeOut(250, function() {
 							$(this).remove();
 							$('.sp-lightbox').data('currenteq',currentEq);
-							$('.sp-lightbox-content').append('<img src="'+newImg+'" alt="' + alt + '" title="' + title + '"/>');
+							$('.sp-lightbox-content').prepend('<img src="'+newImg+'" alt="' + alt + '" title="' + title + '"/>');
 							$('.sp-lightbox-caption').html('<span>' + title +'</span>');
 							$('.sp-lightbox-content img').hide().fadeIn(250);
 						});
