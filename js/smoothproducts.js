@@ -136,7 +136,7 @@
 					thumbAmt = $(this).parents('.sp-wrap').find('.sp-thumbs a').length,
 					currentThumb = ($(this).parents('.sp-wrap').find('.sp-thumbs .sp-current').index())+1;
 				$(this).parents('.sp-wrap').addClass('sp-selected');
-				$('body').append('<div class="sp-lightbox" data-currenteq="'+currentThumb+'">' + currentImg + '<div class="sp-lightbox-caption"><span>' + currentTitle +'</span></div></div>');
+				$('body').append('<div class="sp-lightbox" data-currenteq="'+currentThumb+'"><div class="sp-lightbox-content">' + currentImg + '<div class="sp-lightbox-caption"><span>' + currentTitle +'</span></div></div></div>');
 
 				if(thumbAmt > 1){
 					$('.sp-lightbox').append("<a href='#' id='sp-prev'></a><a href='#' id='sp-next'></a>");
@@ -159,7 +159,7 @@
 					currentThumb = ($(this).parents('.sp-wrap').find('.sp-thumbs .sp-current').index())+1;
 
 				$(this).parents('.sp-wrap').addClass('sp-selected');
-				$('body').append('<div class="sp-lightbox" data-currenteq="'+currentThumb+'"><img src="' + currentImg + '" alt="' + currentAlt + '" title="' + currentTitle + '"/><div class="sp-lightbox-caption"><span>' + currentTitle +'</span></div></div>');
+				$('body').append('<div class="sp-lightbox" data-currenteq="'+currentThumb+'"><div class="sp-lightbox-content"><img src="' + currentImg + '" alt="' + currentAlt + '" title="' + currentTitle + '"/><div class="sp-lightbox-caption"><span>' + currentTitle +'</span></div></div></div>');
 
 				if(thumbAmt > 1){
 					$('.sp-lightbox').append("<a href='#' id='sp-prev'></a><a href='#' id='sp-next'></a>");
@@ -194,11 +194,12 @@
 						$('.sp-selected .sp-current').removeClass();
 						$('.sp-selected .sp-thumbs a:eq('+currentEq+')').addClass('sp-current');
 						$('.sp-selected .sp-large').empty().append('<a href='+newImg+'><img src="'+newThumb+'" alt="' + alt + '" title="' + title + '"/></a>');
-						$('.sp-lightbox img').fadeOut(250, function() {
+						$('.sp-lightbox-content img').fadeOut(250, function() {
 							$(this).remove();
-							$('.sp-lightbox').data('currenteq',nextEq).append('<img src="'+newImg+'" alt="' + alt + '" title="' + title + '"/>');
+							$('.sp-lightbox').data('currenteq',nextEq);
+							$('.sp-lightbox-content').append('<img src="'+newImg+'" alt="' + alt + '" title="' + title + '"/>');
 							$('.sp-lightbox-caption').html('<span>' + title +'</span>');
-							$('.sp-lightbox img').hide().fadeIn(250);
+							$('.sp-lightbox-content img').hide().fadeIn(250);
 						});
 					}
 
@@ -225,11 +226,12 @@
 						$('.sp-selected .sp-current').removeClass();
 						$('.sp-selected .sp-thumbs a:eq('+nextEq+')').addClass('sp-current');
 						$('.sp-selected .sp-large').empty().append('<a href='+newImg+'><img src="'+newThumb+'" alt="' + alt + '" title="' + title + '"/></a>');
-						$('.sp-lightbox img').fadeOut(250, function() {
+						$('.sp-lightbox-content img').fadeOut(250, function() {
 							$(this).remove();
-							$('.sp-lightbox').data('currenteq',currentEq).append('<img src="'+newImg+'" alt="' + alt + '" title="' + title + '"/>');
+							$('.sp-lightbox').data('currenteq',currentEq);
+							$('.sp-lightbox-content').append('<img src="'+newImg+'" alt="' + alt + '" title="' + title + '"/>');
 							$('.sp-lightbox-caption').html('<span>' + title +'</span>');
-							$('.sp-lightbox img').hide().fadeIn(250);
+							$('.sp-lightbox-content img').hide().fadeIn(250);
 						});
 					}
 				event.preventDefault();
