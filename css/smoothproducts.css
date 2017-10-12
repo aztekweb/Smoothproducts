@@ -124,6 +124,10 @@ html, body {
 	max-height: 90%;
 	border: 2px solid #fff;
 }
+.sp-lightbox-caption {
+	position: absolute;
+	bottom:0;
+}
 #sp-prev, #sp-next {
 	position: absolute;
 	top: 50%;

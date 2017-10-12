@@ -20,7 +20,7 @@
 
 				// If more than one image
 				if (thumbQty > 1) {
-					var firstLarge,firstThumb,alt,title,
+					var firstLarge,firstThumb,firstAlt,firstTitle,
 						defaultImage = $('a.sp-default', this)[0]?true:false;
 					$(this).append('<div class="sp-large"></div><div class="sp-thumbs sp-tb-active"></div>');
 					$('a', this).each(function(index) {
@@ -28,17 +28,21 @@
 							large = $(this).attr('href'),
 							classes = '';
 							alt = $('img', this).attr('alt');
+							alt = alt === undefined ? '' : alt;
 							title = $('img', this).attr('title');
+							title = title === undefined ? '' : title;
 						//set default image
 						if((index === 0 && !defaultImage) || $(this).hasClass('sp-default')){
 							classes = ' class="sp-current"';
 							firstLarge = large;
 							firstThumb = $('img', this)[0].src;
+							firstAlt = alt;
+							firstTitle = title;
 						}
 						$(this).parents('.sp-wrap').find('.sp-thumbs').append('<a href="' + large + '" style="background-image:url(' + thumb + ')"'+classes+' ' + 'alt="' + alt + '" title="' + title + '"></a>');
 						$(this).remove();
 					});
-					$('.sp-large', this).append('<a href="' + firstLarge + '" class="sp-current-big"><img src="' + firstThumb + '" alt="'+ alt + '' + alt + '" title="' + title + '" /></a>');
+					$('.sp-large', this).append('<a href="' + firstLarge + '" class="sp-current-big"><img src="' + firstThumb + '" alt="'+ firstAlt + '" title="' + firstTitle + '" /></a>');
 					$('.sp-wrap').css('display', 'inline-block');
 				// If only one image
 				} else {
@@ -110,8 +114,9 @@
 
 			// Zoom In non-touch
 			$(document.body).on('mouseenter', '.sp-non-touch .sp-large', function(event) {
-				var largeUrl = $('a', this).attr('href');
-				$(this).append('<div class="sp-zoom"><img src="' + largeUrl + '"/></div>');
+				var largeUrl = $('a', this).attr('href'),
+					title = $('a', this).children().attr('title');
+				$(this).append('<div class="sp-zoom"><img src="' + largeUrl + '" title="' + title + '"/></div>');
 				$(this).find('.sp-zoom').fadeIn(250);
 				event.preventDefault();
 			});
@@ -127,10 +132,11 @@
 			// Open in Lightbox non-touch
 			$(document.body).on('click', '.sp-non-touch .sp-zoom', function(event) {
 				var currentImg = $(this).html(),
+					currentTitle = $(currentImg).attr('title'),
 					thumbAmt = $(this).parents('.sp-wrap').find('.sp-thumbs a').length,
 					currentThumb = ($(this).parents('.sp-wrap').find('.sp-thumbs .sp-current').index())+1;
 				$(this).parents('.sp-wrap').addClass('sp-selected');
-				$('body').append("<div class='sp-lightbox' data-currenteq='"+currentThumb+"'>" + currentImg + "</div>");
+				$('body').append('<div class="sp-lightbox" data-currenteq="'+currentThumb+'">' + currentImg + '<div class="sp-lightbox-caption"><span>' + currentTitle +'</span></div></div>');
 
 				if(thumbAmt > 1){
 					$('.sp-lightbox').append("<a href='#' id='sp-prev'></a><a href='#' id='sp-next'></a>");
@@ -147,11 +153,13 @@
 			// Open in Lightbox touch
 			$(document.body).on('click', '.sp-large a', function(event) {
 				var currentImg = $(this).attr('href'),
+					currentAlt = $(this).children().attr('alt'),
+					currentTitle = $(this).children().attr('title'),
 					thumbAmt = $(this).parents('.sp-wrap').find('.sp-thumbs a').length,
 					currentThumb = ($(this).parents('.sp-wrap').find('.sp-thumbs .sp-current').index())+1;
 
 				$(this).parents('.sp-wrap').addClass('sp-selected');
-				$('body').append('<div class="sp-lightbox" data-currenteq="'+currentThumb+'"><img src="' + currentImg + '" alt="' + alt + '" title="' + title + '"/></div>');
+				$('body').append('<div class="sp-lightbox" data-currenteq="'+currentThumb+'"><img src="' + currentImg + '" alt="' + currentAlt + '" title="' + currentTitle + '"/><div class="sp-lightbox-caption"><span>' + currentTitle +'</span></div></div>');
 
 				if(thumbAmt > 1){
 					$('.sp-lightbox').append("<a href='#' id='sp-prev'></a><a href='#' id='sp-next'></a>");
@@ -189,6 +197,7 @@
 						$('.sp-lightbox img').fadeOut(250, function() {
 							$(this).remove();
 							$('.sp-lightbox').data('currenteq',nextEq).append('<img src="'+newImg+'" alt="' + alt + '" title="' + title + '"/>');
+							$('.sp-lightbox-caption').html('<span>' + title +'</span>');
 							$('.sp-lightbox img').hide().fadeIn(250);
 						});
 					}
@@ -219,6 +228,7 @@
 						$('.sp-lightbox img').fadeOut(250, function() {
 							$(this).remove();
 							$('.sp-lightbox').data('currenteq',currentEq).append('<img src="'+newImg+'" alt="' + alt + '" title="' + title + '"/>');
+							$('.sp-lightbox-caption').html('<span>' + title +'</span>');
 							$('.sp-lightbox img').hide().fadeIn(250);
 						});
 					}
