@@ -23,16 +23,16 @@ html, body {
     display: none;
     line-height: 0;
     font-size: 0;
-    background: #eee;
-    border: 5px solid #eee;
+    background: #f6f6f6;
+    border: 5px solid #f6f6f6;
     border-radius: 3px;
     position: relative;
-    margin: 0 25px 15px 0;
+    margin: 0 0px 15px 0;
     float: left;
     /**************
 	  Set max-width to your thumbnail width
 	***************/
-    max-width: 300px;
+    max-width: 900px;
 }
 
 /* Thumbnails */
@@ -121,20 +121,24 @@ html, body {
     .sp-lightbox img {
         display: block;
         margin: 0 auto;
-        width: 50%;
-        height: auto;
+        width: auto;
+        max-width:600px;
+        height: auto;   
+        max-height:600px;
     }
 
 .sp-lightbox-content {
     position: absolute;
     margin: auto;
-    top: 30%;
+    top: 10%;
     bottom: 0;
     left: 0;
     right: 0;
-    max-width: 90%;
-    max-height: 90%;
-    height: 100%;
+    max-width: 80%;
+    max-height: 80%;
+    height:80%;
+    padding-bottom:90px;
+    
 }
 
 .sp-lightbox-caption {
@@ -199,7 +203,15 @@ html, body {
 
 /* Tweak styles for small viewports */
 
-@media screen and (max-width: 400px) {
+@media screen and (max-width: 300px) {
+         .sp-lightbox img {
+        display: block;
+        margin: 0 auto;
+        width: auto;
+        max-width:150px;
+        height: auto;   
+        max-height:150px;
+    }
     .sp-wrap {
         margin: 0 0 15px 0;
     }
@@ -208,5 +220,40 @@ html, body {
         top: auto;
         margin-top: 0;
         bottom: 25px;
+    }
+}
+
+@media screen and (max-width: 400px) {
+         .sp-lightbox img {
+        display: block;
+        margin: 0 auto;
+        width: auto;
+        max-width:200px;
+        height: auto;   
+        max-height:200px;
+    }
+    .sp-wrap {
+        margin: 0 0 15px 0;
+    }
+
+    #sp-prev, #sp-next {
+        top: auto;
+        margin-top: 0;
+        bottom: 25px;
+    }
+}
+
+@media screen and (max-width: 1000px) {
+       .sp-lightbox img {
+        display: block;
+        margin: 0 auto;
+        width: auto;
+        max-width:300px;
+        height: auto;   
+        max-height:300px;
+    }
+    #sp-prev, #sp-next {
+        position: absolute;
+        top: 30%;
     }
 }
